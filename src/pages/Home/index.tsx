@@ -16,6 +16,13 @@ import {
 export function Home() {
   const { dataUserGithub } = useUserGithubContext();
 
+  function formattedDate(date: string) {
+    const formatDate = new Date(date);
+    const dateFormatter = new Intl.DateTimeFormat("pr-BR");
+
+    return dateFormatter.format(formatDate);
+  }
+
   return (
     <Container>
       <Wrapper>
@@ -29,7 +36,7 @@ export function Home() {
                     Inicio da jornada:
                   </span>
                   
-                  <p>{dataUserGithub.created_at}</p>
+                  <p>{formattedDate(dataUserGithub.created_at)}</p>
                 </li>
 
                 <li>

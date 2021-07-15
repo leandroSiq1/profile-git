@@ -21,7 +21,6 @@ export const Sidebar = styled.div`
   min-width: 350px;
   width: max-content;
   padding: 1rem;
-  /* background: var(--shape); */
 
   display: flex;
   align-items: center;
@@ -37,7 +36,7 @@ export const Sidebar = styled.div`
 `; 
 
 export const UserInfo = styled.div`
-  width: 100%;
+  width: max-content;
   background: var(--shape-hover);
   border-radius: 0.35rem;
   padding: 1.5rem;
