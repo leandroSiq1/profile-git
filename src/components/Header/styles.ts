@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { darken } from 'polished';
+import { darken, lighten } from 'polished';
 
 export const Container = styled.header`
   border-bottom: 1px solid var(--shape);
@@ -52,6 +52,37 @@ export const BoxInput = styled.div`
       &:hover {
         background-color:  ${darken(0.1, 'rgb(0, 127, 255)')};
       }
+    }
+  }
+`;
+
+export const BoxUser = styled.div`
+  position: absolute;
+  right: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.8rem;
+
+  img {
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+    border: 2px solid var(--blue);
+  }
+  
+
+  a {
+    color: var(--blue);
+    text-decoration: none;
+    transition: all .2s ease-in;
+    border-bottom: 1px solid var(--blue);
+
+    &:hover {
+      color: ${lighten(0.2, 'rgb(0, 127, 255)')};
+      border-bottom: 1px solid var(--blue);
     }
   }
 `;
