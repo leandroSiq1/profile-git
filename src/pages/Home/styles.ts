@@ -6,19 +6,22 @@ export const Container = styled.main`
 
 export const Wrapper = styled.div`
   max-width: 850px;
-  margin: 0 auto;
+  margin: 2rem auto;
 `;
 
 export const Content = styled.div`
   width: 100%;
   height: 100%;
+
+  display: flex;
+  align-items: center;
 `;
 
 export const Sidebar = styled.div`
   min-width: 350px;
   width: max-content;
   padding: 1rem;
-  background: var(--shape);
+  /* background: var(--shape); */
 
   display: flex;
   align-items: center;
@@ -85,7 +88,6 @@ export const UserInfo = styled.div`
 
 export const Nav = styled.div`
   width: 100%;
-  background: var(--shape);
 
   h2 {
     padding-bottom: 0.7rem;
@@ -128,5 +130,54 @@ export const Buttons = styled.div`
 `;
 
 export const Main = styled.div`
+  background: var(--background);
+  height: 100%;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  img {
+    width: 12rem;
+    height: 12rem;
+    border-radius: 50%;
+    border: 2px solid var(--blue);
+  }
+
+  h1 {
+    padding-top: 1rem;
+  }
+
+  > p {
+    text-align: center;
+    padding: 1rem;
+  }
+`;
+
+export const Box = styled.div`
+  ul {
+    list-style: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+    li {
+      text-align: center;
+      background: var(--shape);
+      border-radius: 0.30rem;
+      padding: 1.3rem;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+      h3 {
+        color: var(--blue);
+      }
+    }
+  }
 `;

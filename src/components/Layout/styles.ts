@@ -8,4 +8,5 @@ export const Container = styled.div`
 export const Content = styled.section`
   width: 100%;
   margin-top: 1rem;
+  padding-bottom: 5rem;
 `;

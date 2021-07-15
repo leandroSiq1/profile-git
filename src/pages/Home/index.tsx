@@ -10,6 +10,7 @@ import {
   Main, 
   Nav,
   Buttons,
+  Box,
 } from './styles';
 
 export function Home() {
@@ -74,7 +75,31 @@ export function Home() {
             </Nav>
           </Sidebar>
 
-          <Main />
+          <Main>
+            <img src={dataUserGithub.avatar_url} alt={`Usuario ${dataUserGithub.name}`} />
+            <h1>{dataUserGithub.name}</h1>
+
+            <p>{dataUserGithub.bio}</p>
+
+            <Box>
+              <ul>
+                <li>
+                  <h3>{dataUserGithub.public_repos}</h3>
+                  <p>Repositórios</p>
+                </li>
+
+                <li>
+                  <h3>{dataUserGithub.following}</h3>
+                  <p>Seguindo</p>
+                </li>
+
+                <li>
+                  <h3>{dataUserGithub.followers}</h3>
+                  <p>Seguidores</p>
+                </li>
+              </ul>
+            </Box>
+          </Main>
         </Content>
       </Wrapper>
     </Container>

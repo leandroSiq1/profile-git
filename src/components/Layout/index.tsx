@@ -3,6 +3,7 @@ import { useUserGithubContext } from '../../hooks/useUserGithubContext';
 
 import { Header } from '../Header';
 import { Home } from '../../pages/Home';
+import { Repos } from '../../pages/Repos';
 
 import { Container, Content } from './styles';
 
@@ -15,9 +16,15 @@ export function Layout() {
       
       <Content>
         {dataUserGithub.name && (
-          <Route exact path="/">
-            <Home />
-          </Route>
+          <>
+            <Route exact path="/">
+              <Home />
+            </Route>
+
+            <Route exact path="/repos">
+              <Repos />
+            </Route>
+          </>
         )}
       </Content>
     </Container>
