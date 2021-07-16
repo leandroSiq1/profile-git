@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 
 export const Container = styled.main`
-  width: 100%;
+  max-width: 90%;
+  margin: 0 auto;
+  padding-bottom: 4rem;
 `;
 
 export const Wrapper = styled.div`
@@ -165,7 +167,6 @@ export const Box = styled.div`
 
     li {
       text-align: center;
-      background: var(--shape);
       border-radius: 0.30rem;
       padding: 1.3rem;
 

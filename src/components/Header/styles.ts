@@ -3,13 +3,33 @@ import styled from 'styled-components';
 import { darken, lighten } from 'polished';
 
 export const Container = styled.header`
+  min-height: 170px;
   border-bottom: 1px solid var(--shape);
   position: relative;
-  padding: 3rem 0%;
+  padding: 3rem 0;
 
   display: flex;
   align-items: center;
   justify-content: center;
+
+  > button {
+    position: absolute;
+    left: 5rem;
+
+    padding: 0.7rem;
+    background: var(--blue);
+    border: 1px solid var(--blue);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .2s ease-in-out;
+
+    &:hover {
+      border-color: ${darken(0.1, 'rgb(0, 127, 255)')};
+      background: ${darken(0.1, 'rgb(0, 127, 255)')};
+    }
+  }
 `;
 
 export const BoxInput = styled.div`

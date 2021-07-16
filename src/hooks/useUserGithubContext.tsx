@@ -8,7 +8,8 @@ interface UserGithubContextProps {
   userGithub: string;
   setUserGithub: (user: string) => void;
   getDataUserGithub: () => void;
-  dataUserGithub: DataUserGithubProps
+  dataUserGithub: DataUserGithubProps;
+  setDataUserGithub: (data: DataUserGithubProps) => void;
 }
 
 interface DataUserGithubProps {
@@ -32,18 +33,38 @@ export const UserGithubContext = createContext<UserGithubContextProps>(
 
 export function UserGithubProvider({ children }: UserGithubProviderProps) {
   const [dataUserGithub, setDataUserGithub] = useState<DataUserGithubProps>({} as DataUserGithubProps);
-  const [userGithub, setUserGithub] = useState('');
+  const [userGithub, setUserGithub] = useState(() => {
+    const storageValue = localStorage.getItem("@ProfileGit:userGithub");
+
+    if (storageValue) {
+      return storageValue;
+    }
+    
+    return '';
+  });
 
   async function getDataUserGithub() {
-    await fetch(`https://api.github.com/users/${userGithub}`)
+    fetch(`https://api.github.com/users/${userGithub}`)
     .then(response => response.json())
-    .then(data => setDataUserGithub(data)); 
+    .then(data => {
+      setDataUserGithub(data);
+      
+      localStorage.setItem("@ProfileGit:userGithub", userGithub);
+    });
+
+    
 
     setUserGithub('');
   }
 
   return (
-    <UserGithubContext.Provider value={{ userGithub, setUserGithub, getDataUserGithub, dataUserGithub }}>
+    <UserGithubContext.Provider value={{ 
+      userGithub, 
+      setUserGithub, 
+      getDataUserGithub, 
+      dataUserGithub,
+      setDataUserGithub,
+    }}>
       {children}
     </UserGithubContext.Provider>
   );

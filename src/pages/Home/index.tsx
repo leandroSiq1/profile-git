@@ -1,6 +1,18 @@
-import { useUserGithubContext } from '../../hooks/useUserGithubContext';
+import { useHistory } from 'react-router-dom';
+import { useEffect } from 'react';
 
-import { FiActivity } from 'react-icons/fi';
+import { useUserGithubContext } from '../../hooks/useUserGithubContext';
+import { formattedDate } from '../../hooks/useFormatDate';
+
+import { Header } from '../../components/Header';
+
+import { 
+  FiCalendar,
+  FiBookmark,
+  FiLink,
+  FiArchive,
+  FiUsers,
+} from 'react-icons/fi';
 import { 
   Container, 
   Wrapper, 
@@ -14,100 +26,120 @@ import {
 } from './styles';
 
 export function Home() {
-  const { dataUserGithub } = useUserGithubContext();
+  const { dataUserGithub, setDataUserGithub, setUserGithub } = useUserGithubContext();
+  const history = useHistory();
 
-  function formattedDate(date: string) {
-    const formatDate = new Date(date);
-    const dateFormatter = new Intl.DateTimeFormat("pr-BR");
+  useEffect(() => {
+    const storageValue = localStorage.getItem("@ProfileGit:userGithub");
+    if (storageValue) {
+      fetch(`https://api.github.com/users/${storageValue}`)
+      .then(response => response.json())
+      .then(data => setDataUserGithub(data));
+      
+      setUserGithub('');
+      return;
+    }
+  }, []);
 
-    return dateFormatter.format(formatDate);
+  function formattedUrlUserBlog(url: string) {
+    const formatUrlOne = url.split("https://");
+    const formatUrlTwo = url.split("http://");
+  
+    if (formatUrlTwo.length > 1) {
+      return formatUrlTwo[1];
+    }
+    
+    if (formatUrlOne.length > 1) {
+      return formatUrlOne[1];
+    }
+
+    return url;
   }
 
   return (
     <Container>
+      <Header buttonBack={false} inputUser />
+
       <Wrapper>
-        <Content>
-          <Sidebar>
-            <UserInfo>
-              <ul>
-                <li>
-                  <span>
-                    <FiActivity size={20} color="var(--blue)" />
-                    Inicio da jornada:
-                  </span>
-                  
-                  <p>{formattedDate(dataUserGithub.created_at)}</p>
-                </li>
+        {dataUserGithub.name && (
+          <Content>
+            <Sidebar>
+              <UserInfo>
+                <ul>
+                  <li>
+                    <span>
+                      <FiCalendar size={20} color="var(--blue)" />
+                      Inicio da jornada:
+                    </span>
+                    
+                    <p>{formattedDate(dataUserGithub.created_at)}</p>
+                  </li>
 
-                <li>
-                  <span>
-                    <FiActivity size={20} color="var(--blue)" />
-                    Repositórios publicos: 
-                  </span>
-                  
-                  <p>{dataUserGithub.public_repos}</p>
-                </li>
+                  <li>
+                    <span>
+                      <FiBookmark size={20} color="var(--blue)" />
+                      Repositórios publicos: 
+                    </span>
+                    
+                    <p>{dataUserGithub.public_repos}</p>
+                  </li>
 
-                <li>
-                  <span>
-                    <FiActivity size={20} color="var(--blue)" />
-                  </span>
+                  <li>
+                    <span>
+                      <FiLink size={20} color="var(--blue)" />
+                    </span>
 
-                  <a target="_blank" href={dataUserGithub.blog}>Visitar site</a>
-                </li>
-              </ul>
-            </UserInfo>
+                    <a target="_blank" href={`https://${formattedUrlUserBlog(dataUserGithub.blog)}`}>Visitar site</a>
+                  </li>
+                </ul>
+              </UserInfo>
 
-            <div className="separator"></div>
+              <div className="separator"></div>
 
-            <Nav>
-              <h2>Acesso rápido</h2>
+              <Nav>
+                <h2>Acesso rápido</h2>
 
-              <Buttons>
-                <button type="button">
-                  <FiActivity size={24} color="var(--blue)" />
-                  <p>Repositórios</p>
-                </button>
+                <Buttons>
+                  <button type="button" onClick={() => history.push("/repos")}>
+                    <FiArchive size={24} color="var(--blue)" />
+                    <p>Repositórios</p>
+                  </button>
 
-                <button type="button">
-                  <FiActivity size={24} color="var(--blue)" />
-                  <p>Seguindo</p>
-                </button>
+                  <button type="button">
+                    <FiUsers size={24} color="var(--blue)" />
+                    <p>Seguindo</p>
+                  </button>
+                </Buttons>
+              </Nav>
+            </Sidebar>
 
-                <button type="button">
-                  <FiActivity size={24} color="var(--blue)" />
-                  <p>Seguidores</p>
-                </button>
-              </Buttons>
-            </Nav>
-          </Sidebar>
+            <Main>
+              <img src={dataUserGithub.avatar_url} alt={`Usuario ${dataUserGithub.name}`} />
+              <h1>{dataUserGithub.name}</h1>
 
-          <Main>
-            <img src={dataUserGithub.avatar_url} alt={`Usuario ${dataUserGithub.name}`} />
-            <h1>{dataUserGithub.name}</h1>
+              <p>{dataUserGithub.bio}</p>
 
-            <p>{dataUserGithub.bio}</p>
+              <Box>
+                <ul>
+                  <li>
+                    <h3>{dataUserGithub.public_repos}</h3>
+                    <p>Repositórios</p>
+                  </li>
 
-            <Box>
-              <ul>
-                <li>
-                  <h3>{dataUserGithub.public_repos}</h3>
-                  <p>Repositórios</p>
-                </li>
+                  <li>
+                    <h3>{dataUserGithub.following}</h3>
+                    <p>Seguindo</p>
+                  </li>
 
-                <li>
-                  <h3>{dataUserGithub.following}</h3>
-                  <p>Seguindo</p>
-                </li>
-
-                <li>
-                  <h3>{dataUserGithub.followers}</h3>
-                  <p>Seguidores</p>
-                </li>
-              </ul>
-            </Box>
-          </Main>
-        </Content>
+                  <li>
+                    <h3>{dataUserGithub.followers}</h3>
+                    <p>Seguidores</p>
+                  </li>
+                </ul>
+              </Box>
+            </Main>
+          </Content>
+        )}
       </Wrapper>
     </Container>
   );
