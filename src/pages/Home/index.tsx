@@ -105,7 +105,7 @@ export function Home() {
                     <p>Repositórios</p>
                   </button>
 
-                  <button type="button">
+                  <button type="button" onClick={() => history.push("/following")}>
                     <FiUsers size={24} color="var(--blue)" />
                     <p>Seguindo</p>
                   </button>
