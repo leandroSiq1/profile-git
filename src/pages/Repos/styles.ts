@@ -16,9 +16,8 @@ export const Content = styled.section`
   height: 100%;
 
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-gap: 1rem;
-  padding-bottom: 4rem;
 `;
 
 export const Card = styled.div`

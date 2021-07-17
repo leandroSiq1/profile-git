@@ -52,8 +52,6 @@ export function UserGithubProvider({ children }: UserGithubProviderProps) {
       localStorage.setItem("@ProfileGit:userGithub", userGithub);
     });
 
-    
-
     setUserGithub('');
   }
 

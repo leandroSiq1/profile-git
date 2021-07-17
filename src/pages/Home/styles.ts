@@ -89,10 +89,6 @@ export const UserInfo = styled.div`
 
 export const Nav = styled.div`
   width: 100%;
-
-  h2 {
-    padding-bottom: 0.7rem;
-  }
 `;
 
 export const Buttons = styled.div`

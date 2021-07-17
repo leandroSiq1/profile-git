@@ -97,17 +97,10 @@ export function Home() {
               <div className="separator"></div>
 
               <Nav>
-                <h2>Acesso rápido</h2>
-
                 <Buttons>
                   <button type="button" onClick={() => history.push("/repos")}>
                     <FiArchive size={24} color="var(--blue)" />
                     <p>Repositórios</p>
-                  </button>
-
-                  <button type="button" onClick={() => history.push("/following")}>
-                    <FiUsers size={24} color="var(--blue)" />
-                    <p>Seguindo</p>
                   </button>
                 </Buttons>
               </Nav>

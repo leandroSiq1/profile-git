@@ -28,7 +28,7 @@ interface DataReposUserProps {
 
 export function Repos() {
   const [dataReposUser, setDataReposUser] = useState<DataReposUserProps[]>([]);
-  const { userGithub } = useUserGithubContext();
+  const { userGithub, setUserGithub, setDataUserGithub } = useUserGithubContext();
 
   useEffect(() => {
     const storageValue = localStorage.getItem("@ProfileGit:userGithub");
@@ -37,6 +37,12 @@ export function Repos() {
       fetch(`https://api.github.com/users/${storageValue}/repos`)
       .then(response => response.json())
       .then(data => setDataReposUser(data));
+
+      fetch(`https://api.github.com/users/${storageValue}`)
+      .then(response => response.json())
+      .then(data => setDataUserGithub(data));
+        
+      setUserGithub('');
 
       return;
     }
